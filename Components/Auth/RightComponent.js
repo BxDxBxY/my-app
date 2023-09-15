@@ -167,7 +167,7 @@ function RightComponent(params) {
           </div>
           <div
             style={{ rowGap: "13px" }}
-            className="w-full items-center transition-all duration-300 justify-center bg-white rounded-lg px-[30px] pt-[50px] flex-col"
+            className="w-full items-center flex transition-all duration-300 justify-center bg-white rounded-lg px-[30px] pt-[50px] flex-col"
           >
             <div className="flex md:flex-row flex-col w-full justify-between items-center">
               <p
@@ -193,7 +193,7 @@ function RightComponent(params) {
             </div>
             <form
               onSubmit={handleFormSubmit}
-              className="mt-[20px] transition-all duration-150   flex flex-col "
+              className="mt-[20px] w-full transition-all duration-150 flex flex-col"
             >
               {regOrLog == "reg" && (
                 <div
