@@ -46,7 +46,7 @@ function RightComponent(params) {
       password: data.get("password"),
     });
     setDisabled(true);
-    
+
     // axios
     //   .post(url + "/recruiter/login", data)
     //   .then((res) => {
@@ -159,167 +159,171 @@ function RightComponent(params) {
         animate="visible"
         className="flex flex-col relative w-3/4 mx-auto items-center h-[80vh] justify-center"
       >
-        <div className="flex flex-col items-center transition-all mt-[70px] md:mt-0 mb-[20px] justify-center">
-          <h1 className="text-[26px] font-bold">
-            {regOrLog == "reg" ? "Sign Up" : "Log In"}
-          </h1>
-        </div>
-        <div
-          style={{ rowGap: "13px" }}
-          className="w-full  items-center transition-all duration-300 justify-center bg-white rounded-lg px-[30px] pt-[50px] flex-col"
-        >
-          <div className="flex md:flex-row flex-col w-full justify-between items-center">
-            <p
-              onClick={() => {
-                dispatch(toggleRegLog("log"));
-              }}
-              className={`md:w-[50%] w-full ${
-                regOrLog == "log" ? "border-[#607D8B]" : "border-transparent"
-              } text-black hover:text-[#acb6c8] border-b-2 cursor-pointer transition-all duration-500 text-center py-[6px]`}
-            >
-              Login
-            </p>
-            <p
-              onClick={() => {
-                dispatch(toggleRegLog("reg"));
-              }}
-              className={`w-[50%]  border-b-2  ${
-                regOrLog == "reg" ? "border-[#607D8B]" : "border-transparent"
-              } text-black hover:text-[#acb6c8] transition-all duration-500 cursor-pointer text-center py-[6px]`}
-            >
-              Register
-            </p>
+        <div className="flex flex-col relative w-3/4 mx-auto items-center h-[80vh] justify-center">
+          <div className="flex flex-col items-center transition-all mt-[70px] md:mt-0 mb-[20px] justify-center">
+            <h1 className="text-[26px] font-bold">
+              {regOrLog == "reg" ? "Sign Up" : "Log In"}
+            </h1>
           </div>
-          <form
-            onSubmit={handleFormSubmit}
-            className="mt-[20px] transition-all duration-150   flex flex-col "
+          <div
+            style={{ rowGap: "13px" }}
+            className="w-full items-center transition-all duration-300 justify-center bg-white rounded-lg px-[30px] pt-[50px] flex-col"
           >
-            {regOrLog == "reg" && (
-              <div
-                className={`${
-                  regOrLog == "reg"
-                    ? "flex opacity-100 w-auto"
-                    : " w-0 h-0 opacity-0"
-                } flex-col mb-[20px] transition-all duration-300`}
+            <div className="flex md:flex-row flex-col w-full justify-between items-center">
+              <p
+                onClick={() => {
+                  dispatch(toggleRegLog("log"));
+                }}
+                className={`md:w-[50%] w-full ${
+                  regOrLog == "log" ? "border-[#607D8B]" : "border-transparent"
+                } text-black hover:text-[#acb6c8] border-b-2 cursor-pointer transition-all duration-500 text-center py-[6px]`}
               >
-                <label
-                  className="transition-all font-bold text-black"
-                  htmlFor="name"
+                Login
+              </p>
+              <p
+                onClick={() => {
+                  dispatch(toggleRegLog("reg"));
+                }}
+                className={`w-[50%]  border-b-2  ${
+                  regOrLog == "reg" ? "border-[#607D8B]" : "border-transparent"
+                } text-black hover:text-[#acb6c8] transition-all duration-500 cursor-pointer text-center py-[6px]`}
+              >
+                Register
+              </p>
+            </div>
+            <form
+              onSubmit={handleFormSubmit}
+              className="mt-[20px] transition-all duration-150   flex flex-col "
+            >
+              {regOrLog == "reg" && (
+                <div
+                  className={`${
+                    regOrLog == "reg"
+                      ? "flex opacity-100 w-auto"
+                      : " w-0 h-0 opacity-0"
+                  } flex-col mb-[20px] transition-all duration-300`}
                 >
-                  Name
+                  <label
+                    className="transition-all font-bold text-black"
+                    htmlFor="name"
+                  >
+                    Name
+                  </label>
+                  <Input
+                    placeholder="Name"
+                    type="text"
+                    id="name"
+                    value={name}
+                    name="name"
+                    className="transition-all"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                    required
+                  />
+                </div>
+              )}
+              <div className="flex flex-col mb-[20px]">
+                <label className="font-bold text-black" htmlFor="email">
+                  Email
                 </label>
                 <Input
-                  placeholder="Name"
-                  type="text"
-                  id="name"
-                  value={name}
-                  name="name"
-                  className="transition-all"
+                  placeholder="Email Address"
+                  type="email"
+                  id="email"
+                  value={email}
+                  color={colorE}
+                  name="email"
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setEmail(e.target.value);
+                    if (!emailValidation.test(e.target.value)) {
+                      e.target.setAttribute("error", true);
+                      setColorE("error");
+                    } else {
+                      e.target.removeAttribute("error");
+                      setColorE("primary");
+                    }
                   }}
                   required
+                  inputProps={{ "aria-label": "description" }}
                 />
               </div>
-            )}
-            <div className="flex flex-col mb-[20px]">
-              <label className="font-bold text-black" htmlFor="email">
-                Email
-              </label>
-              <Input
-                placeholder="Email Address"
-                type="email"
-                id="email"
-                value={email}
-                color={colorE}
-                name="email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (!emailValidation.test(e.target.value)) {
-                    e.target.setAttribute("error", true);
-                    setColorE("error");
-                  } else {
-                    e.target.removeAttribute("error");
-                    setColorE("primary");
-                  }
-                }}
-                required
-                inputProps={{ "aria-label": "description" }}
-              />
-            </div>
-            <div className="flex flex-col mb-[10px] relative">
-              <label className="font-bold text-black" htmlFor="password">
-                Password
-              </label>
-              <Input
-                variant="standard"
-                placeholder={"Password"}
-                id="password"
-                value={password}
-                name="password"
-                required
-                color={color}
-                type={typeInput}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (!passwordValidation.test(e.target.value)) {
-                    e.target.setAttribute("error", true);
-                    setColor("error");
-                  } else {
-                    e.target.removeAttribute("error");
-                    setColor("primary");
-                  }
-                }}
-              />
-              <img
-                width={17}
-                className={`absolute cursor-pointer right-[5px] ${" bottom-[5px] "}`}
-                onClick={() => {
-                  if (typeInput === "password") {
-                    setTypeInput("text");
-                  } else setTypeInput("password");
-                }}
-                height={17}
-                src={
-                  typeInput === "password" ? "/eyeIcon2.png" : "/eyeIcon.png"
-                }
-                alt="toggle input type"
-              />
-              {errorInp && (
-                <FormHelperText
-                  sx={{
-                    color: "red",
-                    margin: "0 0 0 auto",
-                    display: "flex",
+              <div className="flex flex-col mb-[10px] relative">
+                <label className="font-bold text-black" htmlFor="password">
+                  Password
+                </label>
+                <Input
+                  variant="standard"
+                  placeholder={"Password"}
+                  id="password"
+                  value={password}
+                  name="password"
+                  required
+                  color={color}
+                  type={typeInput}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (!passwordValidation.test(e.target.value)) {
+                      e.target.setAttribute("error", true);
+                      setColor("error");
+                    } else {
+                      e.target.removeAttribute("error");
+                      setColor("primary");
+                    }
                   }}
-                  className=" ml-auto"
-                >
-                  Incorrect email or password!
-                </FormHelperText>
-              )}
-            </div>
-            <span
-              onClick={handleForgotPassword}
-              className={`${
-                regOrLog == "log" ? "opacity-100 w-auto" : "w-0 h-0  opacity-0"
-              } cursor-pointer flex ml-auto text-[12px] text-[#3a6fff] transition-all duration-75 mb-[50px]`}
-            >
-              Forgot password?
-            </span>
-            <div className="flex pb-[40px] items-center transition-all duration-150 flex-col justify-center w-full space-y-[24px]">
-              <button
-                disabled={disabled}
-                type="submit"
-                className={`flex items-center justify-center text-center w-[200px]  ${
-                  disabled
-                    ? "bg-[#c2c2c2] cursor-default"
-                    : "active:ring-2 ring-blue-700  shadow-blue-700 bg-blue-500 active:shadow-2xl hover:bg-blue-600"
-                } rounded-md px-[15px] py-[10px] transition-all duration-150 `}
+                />
+                <img
+                  width={17}
+                  className={`absolute cursor-pointer right-[5px] ${" bottom-[5px] "}`}
+                  onClick={() => {
+                    if (typeInput === "password") {
+                      setTypeInput("text");
+                    } else setTypeInput("password");
+                  }}
+                  height={17}
+                  src={
+                    typeInput === "password" ? "/eyeIcon2.png" : "/eyeIcon.png"
+                  }
+                  alt="toggle input type"
+                />
+                {errorInp && (
+                  <FormHelperText
+                    sx={{
+                      color: "red",
+                      margin: "0 0 0 auto",
+                      display: "flex",
+                    }}
+                    className=" ml-auto"
+                  >
+                    Incorrect email or password!
+                  </FormHelperText>
+                )}
+              </div>
+              <span
+                onClick={handleForgotPassword}
+                className={`${
+                  regOrLog == "log"
+                    ? "opacity-100 w-auto"
+                    : "w-0 h-0  opacity-0"
+                } cursor-pointer flex ml-auto text-[12px] text-[#3a6fff] transition-all duration-75 mb-[50px]`}
               >
-                {regOrLog === "log" ? "LOGIN" : "SIGN UP"}
-              </button>
-            </div>
-          </form>
+                Forgot password?
+              </span>
+              <div className="flex pb-[40px] items-center transition-all duration-150 flex-col justify-center w-full space-y-[24px]">
+                <button
+                  disabled={disabled}
+                  type="submit"
+                  className={`flex items-center justify-center text-center w-[200px]  ${
+                    disabled
+                      ? "bg-[#c2c2c2] cursor-default"
+                      : "active:ring-2 ring-blue-700  shadow-blue-700 bg-blue-500 active:shadow-2xl hover:bg-blue-600"
+                  } rounded-md px-[15px] py-[10px] transition-all duration-150 `}
+                >
+                  {regOrLog === "log" ? "LOGIN" : "SIGN UP"}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </motion.div>
       {/* Success Alert */}
