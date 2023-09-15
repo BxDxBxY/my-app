@@ -1,4 +1,11 @@
-import { Button, Input } from "@mui/material";
+import {
+  Alert,
+  Backdrop,
+  Button,
+  CircularProgress,
+  Input,
+  Snackbar,
+} from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -11,21 +18,31 @@ function RightComponent(params) {
   const [name, setName] = useState("");
   const [colorE, setColorE] = useState("primary");
   const [color, setColor] = useState("error");
-  const [typeInput, setTypeInput] = useState("error");
+  const [typeInput, setTypeInput] = useState("password");
   const [resetBtnLoading, setResetBtnLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [errorInp, setErrorInp] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openLoader, setOpenLoader] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("Something went wrong!");
+  const [successMsg, setSuccessMsg] = useState("Success!");
   const regOrLog = useSelector((state) => state.regOrLog);
 
   const emailValidation = new RegExp(
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/
   );
-  const handleLoginFormSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
+    setOpenLoader(true);
     setResetBtnLoading(true);
+    setTimeout(() => {
+      setOpenLoader(false);
+    }, 3000);
     const data = new FormData(e.target);
     console.log({
       email: data.get("email"),
+      name: data.get("name"),
       password: data.get("password"),
     });
     setDisabled(true);
@@ -80,6 +97,61 @@ function RightComponent(params) {
   };
   return (
     <>
+      {/* Backdrop Loader */}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={openLoader}
+      >
+        {/* <CircularProgress color="inherit" /> */}
+        {/* Alien Loader */}
+        <div className="box-of-star1">
+          <div className="star star-position1"></div>
+          <div className="star star-position2"></div>
+          <div className="star star-position3"></div>
+          <div className="star star-position4"></div>
+          <div className="star star-position5"></div>
+          <div className="star star-position6"></div>
+          <div className="star star-position7"></div>
+        </div>
+        <div className="box-of-star2">
+          <div className="star star-position1"></div>
+          <div className="star star-position2"></div>
+          <div className="star star-position3"></div>
+          <div className="star star-position4"></div>
+          <div className="star star-position5"></div>
+          <div className="star star-position6"></div>
+          <div className="star star-position7"></div>
+        </div>
+        <div className="box-of-star3">
+          <div className="star star-position1"></div>
+          <div className="star star-position2"></div>
+          <div className="star star-position3"></div>
+          <div className="star star-position4"></div>
+          <div className="star star-position5"></div>
+          <div className="star star-position6"></div>
+          <div className="star star-position7"></div>
+        </div>
+        <div className="box-of-star4">
+          <div className="star star-position1"></div>
+          <div className="star star-position2"></div>
+          <div className="star star-position3"></div>
+          <div className="star star-position4"></div>
+          <div className="star star-position5"></div>
+          <div className="star star-position6"></div>
+          <div className="star star-position7"></div>
+        </div>
+        <div data-js="astro" className="astronaut">
+          <div className="head"></div>
+          <div className="arm arm-left"></div>
+          <div className="arm arm-right"></div>
+          <div className="body">
+            <div className="panel"></div>
+          </div>
+          <div className="leg leg-left"></div>
+          <div className="leg leg-right"></div>
+          <div className="schoolbag"></div>
+        </div>
+      </Backdrop>
       <motion.div
         variants={item}
         initial="hidden"
@@ -87,7 +159,9 @@ function RightComponent(params) {
         className="flex flex-col relative w-3/4 mx-auto items-center h-[80vh] justify-center"
       >
         <div className="flex flex-col items-center transition-all mt-[70px] md:mt-0 mb-[20px] justify-center">
-          <h1 className="text-[26px] font-bold">Log in</h1>
+          <h1 className="text-[26px] font-bold">
+            {regOrLog == "reg" ? "Sign Up" : "Log In"}
+          </h1>
         </div>
         <div
           style={{ rowGap: "13px" }}
@@ -116,35 +190,37 @@ function RightComponent(params) {
             </p>
           </div>
           <form
-            onSubmit={handleLoginFormSubmit}
+            onSubmit={handleFormSubmit}
             className="mt-[20px] transition-all duration-150   flex flex-col "
           >
-            <div
-              className={`${
-                regOrLog == "reg"
-                  ? "flex opacity-100 w-auto"
-                  : "w-0 h-0 overflow-hidden  opacity-0"
-              } flex-col mb-[20px] transition-all duration-300`}
-            >
-              <label
-                className="transition-all font-bold text-black"
-                htmlFor="name"
+            {regOrLog == "reg" && (
+              <div
+                className={`${
+                  regOrLog == "reg"
+                    ? "flex opacity-100 w-auto"
+                    : " w-0 h-0 opacity-0"
+                } flex-col mb-[20px] transition-all duration-300`}
               >
-                Name
-              </label>
-              <Input
-                placeholder="Name"
-                type="text"
-                id="name"
-                value={name}
-                name="name"
-                className="transition-all"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                required
-              />
-            </div>
+                <label
+                  className="transition-all font-bold text-black"
+                  htmlFor="name"
+                >
+                  Name
+                </label>
+                <Input
+                  placeholder="Name"
+                  type="text"
+                  id="name"
+                  value={name}
+                  name="name"
+                  className="transition-all"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            )}
             <div className="flex flex-col mb-[20px]">
               <label className="font-bold text-black" htmlFor="email">
                 Email
@@ -223,7 +299,9 @@ function RightComponent(params) {
             </div>
             <span
               onClick={handleForgotPassword}
-              className="cursor-pointer flex ml-auto text-[12px] text-[#3a6fff] mb-[50px]"
+              className={`${
+                regOrLog == "log" ? "opacity-100 w-auto" : "w-0 h-0  opacity-0"
+              } cursor-pointer flex ml-auto text-[12px] text-[#3a6fff] transition-all duration-75 mb-[50px]`}
             >
               Forgot password?
             </span>
@@ -243,6 +321,37 @@ function RightComponent(params) {
           </form>
         </div>
       </motion.div>
+      {/* Success Alert */}
+      <Snackbar
+        open={openError}
+        autoHideDuration={6000}
+        onClose={() => setOpenError(false)}
+      >
+        <Alert
+          onClose={() => setOpenError(false)}
+          severity="error"
+          sx={{ width: "100%" }}
+          variant="filled"
+        >
+          {errorMsg}
+        </Alert>
+      </Snackbar>
+      {/* Success Alert */}
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={6000}
+        onClose={() => setOpenSuccess(false)}
+      >
+        <Alert
+          onClose={() => setOpenSuccess(false)}
+          severity="success"
+          color="info"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {successMsg}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
