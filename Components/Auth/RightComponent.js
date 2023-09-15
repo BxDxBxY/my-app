@@ -46,6 +46,7 @@ function RightComponent(params) {
       password: data.get("password"),
     });
     setDisabled(true);
+    
     // axios
     //   .post(url + "/recruiter/login", data)
     //   .then((res) => {
