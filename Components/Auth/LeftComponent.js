@@ -13,7 +13,7 @@ const LeftComponent = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             key={"log-image"}
             src="/svg/alien.svg"
-            alt="Phone image"
+            alt="Alien image"
             className="img-fluid w-1/2"
             width={"70%"}
             whileHover={{ scale: 1.2 }}
@@ -31,7 +31,7 @@ const LeftComponent = () => {
             exit={{ opacity: 0, x: 200 }}
             src="/svg/alien2.svg"
             whileHover={{ scale: 1.2 }}
-            alt="Phone image"
+            alt="Alien image"
             className="img-fluid w-1/2"
             width={"70%"}
           />
