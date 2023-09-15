@@ -2,6 +2,8 @@ import { Button, Input } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleRegLog } from "@/Redux/actions";
 
 function RightComponent(params) {
   const [email, setEmail] = useState("");
@@ -13,7 +15,7 @@ function RightComponent(params) {
   const [resetBtnLoading, setResetBtnLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [errorInp, setErrorInp] = useState(false);
-  const [regOrLog, setRegOrLog] = useState("log");
+  const regOrLog = useSelector((state) => state.regOrLog);
 
   const emailValidation = new RegExp(
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}$/
@@ -50,6 +52,8 @@ function RightComponent(params) {
     //   });
   };
   const passwordValidation = /^.{6,25}$/;
+
+  const dispatch = useDispatch();
 
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -91,7 +95,9 @@ function RightComponent(params) {
         >
           <div className="flex md:flex-row flex-col w-full justify-between items-center">
             <p
-              onClick={() => setRegOrLog("log")}
+              onClick={() => {
+                dispatch(toggleRegLog("log"));
+              }}
               className={`md:w-[50%] w-full ${
                 regOrLog == "log" ? "border-[#607D8B]" : "border-transparent"
               } text-black hover:text-[#acb6c8] border-b-2 cursor-pointer transition-all duration-500 text-center py-[6px]`}
@@ -99,7 +105,9 @@ function RightComponent(params) {
               Login
             </p>
             <p
-              onClick={() => setRegOrLog("reg")}
+              onClick={() => {
+                dispatch(toggleRegLog("reg"));
+              }}
               className={`w-[50%]  border-b-2  ${
                 regOrLog == "reg" ? "border-[#607D8B]" : "border-transparent"
               } text-black hover:text-[#acb6c8] transition-all duration-500 cursor-pointer text-center py-[6px]`}
@@ -225,7 +233,7 @@ function RightComponent(params) {
                 type="submit"
                 className={`flex items-center justify-center text-center w-[200px]  ${
                   disabled
-                    ? "bg-[#c2c2c2]"
+                    ? "bg-[#c2c2c2] cursor-default"
                     : "active:ring-2 ring-blue-700  shadow-blue-700 bg-blue-500 active:shadow-2xl hover:bg-blue-600"
                 } rounded-md px-[15px] py-[10px] transition-all duration-150 `}
               >
