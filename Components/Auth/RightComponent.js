@@ -167,9 +167,9 @@ function RightComponent(params) {
           </div>
           <div
             style={{ rowGap: "13px" }}
-            className="w-full items-center flex transition-all duration-300 justify-center bg-white rounded-lg px-[30px] pt-[50px] flex-col"
+            className="w-full items-center flex transition-all duration-300 justify-center bg-white rounded-lg  flex-col"
           >
-            <div className="flex md:flex-row flex-col w-full justify-between items-center">
+            <div className="flex md:flex-row flex-col w-full justify-between px-[10px] pt-[20px] items-center">
               <p
                 onClick={() => {
                   dispatch(toggleRegLog("log"));
@@ -193,7 +193,7 @@ function RightComponent(params) {
             </div>
             <form
               onSubmit={handleFormSubmit}
-              className="mt-[20px] w-full transition-all duration-150 flex flex-col"
+              className="mt-[20px] w-full transition-all duration-150 px-[10px] pt-[0px] flex flex-col"
             >
               {regOrLog == "reg" && (
                 <div
@@ -325,6 +325,111 @@ function RightComponent(params) {
             </form>
           </div>
         </div>
+        {/* <div className="flex flex-col relative w-3/4 mx-auto items-center h-[80vh] justify-center">
+          <p>Login</p>
+          <form
+            className="w-full items-center flex transition-all duration-300 justify-center bg-white rounded-lg px-[30px] pt-[50px] flex-col"
+            onSubmit={handleFormSubmit}
+          >
+            <div className="flex flex-col mb-[20px]">
+              <label className="font-bold text-black" htmlFor="email">
+                Email
+              </label>
+              <Input
+                placeholder="Email Address"
+                type="email"
+                id="email"
+                value={email}
+                color={colorE}
+                name="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (!emailValidation.test(e.target.value)) {
+                    e.target.setAttribute("error", true);
+                    setColorE("error");
+                  } else {
+                    e.target.removeAttribute("error");
+                    setColorE("primary");
+                  }
+                }}
+                required
+                inputProps={{ "aria-label": "description" }}
+              />
+            </div>
+            <div className="flex flex-col mb-[10px] relative">
+              <label className="font-bold text-black" htmlFor="password">
+                Password
+              </label>
+              <Input
+                variant="standard"
+                placeholder={"Password"}
+                id="password"
+                value={password}
+                name="password"
+                required
+                color={color}
+                type={typeInput}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (!passwordValidation.test(e.target.value)) {
+                    e.target.setAttribute("error", true);
+                    setColor("error");
+                  } else {
+                    e.target.removeAttribute("error");
+                    setColor("primary");
+                  }
+                }}
+              />
+              <img
+                width={17}
+                className={`absolute cursor-pointer right-[5px] ${" bottom-[5px] "}`}
+                onClick={() => {
+                  if (typeInput === "password") {
+                    setTypeInput("text");
+                  } else setTypeInput("password");
+                }}
+                height={17}
+                src={
+                  typeInput === "password" ? "/eyeIcon2.png" : "/eyeIcon.png"
+                }
+                alt="toggle input type"
+              />
+              {errorInp && (
+                <FormHelperText
+                  sx={{
+                    color: "red",
+                    margin: "0 0 0 auto",
+                    display: "flex",
+                  }}
+                  className=" ml-auto"
+                >
+                  Incorrect email or password!
+                </FormHelperText>
+              )}
+            </div>
+            <span
+              onClick={handleForgotPassword}
+              className={`${
+                regOrLog == "log" ? "opacity-100 w-auto" : "w-0 h-0  opacity-0"
+              } cursor-pointer flex ml-auto text-[12px] text-[#3a6fff] transition-all duration-75 mb-[50px]`}
+            >
+              Forgot password?
+            </span>
+            <div className="flex pb-[40px] items-center transition-all duration-150 flex-col justify-center w-full space-y-[24px]">
+              <button
+                disabled={disabled}
+                type="submit"
+                className={`flex items-center justify-center text-center w-[200px]  ${
+                  disabled
+                    ? "bg-[#c2c2c2] cursor-default"
+                    : "active:ring-2 ring-blue-700  shadow-blue-700 bg-blue-500 active:shadow-2xl hover:bg-blue-600"
+                } rounded-md px-[15px] py-[10px] transition-all duration-150 `}
+              >
+                {regOrLog === "log" ? "LOGIN" : "SIGN UP"}
+              </button>
+            </div>
+          </form>
+        </div> */}
       </motion.div>
       {/* Success Alert */}
       <Snackbar
